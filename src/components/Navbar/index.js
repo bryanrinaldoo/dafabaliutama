@@ -1,6 +1,6 @@
 import React from 'react'
 import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink} from './NavbarElements';
-import logo from './logo.png';
+import logo from '../../static/logo.png';
 import {FaBars} from 'react-icons/fa';
 
 const Navbar = ({ toogle }) => {
