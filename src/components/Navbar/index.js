@@ -8,8 +8,8 @@ const Navbar = ({ toogle }) => {
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo to='/'>
-            <img className='logoNav' src={logo}></img>
+          <NavLogo to='home'>
+            <img className='logoNav' src={logo} alt='logoCompany'></img>
           </NavLogo>
           <MobileIcon onClick={toogle}>
             <FaBars />
@@ -20,7 +20,7 @@ const Navbar = ({ toogle }) => {
             <NavItem><NavLinks to='products'>Products</NavLinks></NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink to='/contact'>Contact Us!</NavBtnLink>
+            <NavBtnLink href="https://www.WordPress.com" target="_blank">Contact Us!</NavBtnLink>
           </NavBtn>
         </NavbarContainer>
       </Nav>
