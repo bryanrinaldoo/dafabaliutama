@@ -18,6 +18,7 @@ const Navbar = ({ toogle }) => {
             <NavItem><NavLinks to='about'>About</NavLinks></NavItem>
             <NavItem><NavLinks to='services'>Services</NavLinks></NavItem>
             <NavItem><NavLinks to='products'>Products</NavLinks></NavItem>
+            <NavItem><NavLinks to='faq'>FAQ</NavLinks></NavItem>
           </NavMenu>
           <NavBtn>
             <NavBtnLink href="https://www.WordPress.com" target="_blank">Contact Us!</NavBtnLink>
