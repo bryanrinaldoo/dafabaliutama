@@ -28,7 +28,7 @@ export const AccordionH1 = styled.h1`
 
 export const AccordionContent = styled.div`
   width: 95%;
-  box-shadow: 2px 10px 35px 1px rgba(153, 153, 153, 0.3);
+  box-shadow: 2px 10px 80px 1px rgba(153, 153, 153, 0.3);
 `;
 
 export const AccordionWrap = styled.div`
