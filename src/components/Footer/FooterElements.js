@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-scroll";
 import { MdPhoneEnabled, MdMail } from 'react-icons/md';
 
 export const FooterContainer = styled.footer`

@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from '../../static/logo.png'
-import { MdPhoneEnabled } from 'react-icons/md'
 import { FooterContainer, FooterWrap, FooterLinkWrap, FooterLinkItem, FooterLinkTitle, FooterLink, MailIcon, PhoneIcon, FooterRights } from './FooterElements'
 
 const Footer = () => {
@@ -9,7 +8,7 @@ const Footer = () => {
       <FooterWrap>
         <FooterLinkWrap>
           <FooterLinkItem>
-            <img src={logo} />
+            <img src={logo} alt="logo"/>
           </FooterLinkItem>
           <FooterLinkItem>
             <FooterLinkTitle>Contact</FooterLinkTitle>

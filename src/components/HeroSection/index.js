@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../../static/logo.png';
-import { HeroContainer, HeroBg, VideoBg, HeroContent, HeroH1, HeroP, HeroBtnWrapper, ArrowForward, ArrowRight } from './HeroElements';
+import { HeroContainer, HeroBg, HeroContent, HeroH1, HeroP, HeroBtnWrapper, ArrowForward, ArrowRight } from './HeroElements';
 import { Button } from '../ButtonElement';
 const HeroSection = () => {
   const [hover, setHover] = useState(false);
@@ -12,7 +12,7 @@ const HeroSection = () => {
   return (
     <HeroContainer id='home'>
       <HeroBg>
-        <img className='logoHome' src={logo}></img>
+        <img className='logoHome' src={logo} alt="logo"></img>
       </HeroBg>
       <HeroContent>
         <HeroH1>PT Dafa Bali Utama</HeroH1>

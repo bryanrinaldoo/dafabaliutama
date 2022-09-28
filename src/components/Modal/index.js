@@ -1,6 +1,16 @@
 import React from 'react'
-import {Background, ModalWrapper, ModalContent, CloseModalButton} from './ModalElements'
-const Modal = ({ showModal, setShowModal, text}) => {
+import {Background, ModalWrapper, ModalContent, CloseModalButton, SwiperImg, SwiperTitle, SwiperContent} from './ModalElements'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+
+// import required modules
+import { Navigation } from "swiper";
+const Modal = ({ showModal, setShowModal, datas}) => {
   return (
     <>
       {showModal ? (
@@ -9,7 +19,15 @@ const Modal = ({ showModal, setShowModal, text}) => {
         </Background>
           <ModalWrapper>
             <ModalContent>
-              <h1>{text}</h1>
+            <Swiper navigation={true} modules={[Navigation]} className="swiper">
+              {datas.map((data) => (
+                <SwiperSlide>
+                  <SwiperImg src={data.img} />
+                  <SwiperTitle>{data.name}</SwiperTitle>
+                  <SwiperContent>{data.desc}</SwiperContent>
+                </SwiperSlide>
+              ))}
+            </Swiper>
             </ModalContent>
             <CloseModalButton onClick={setShowModal}/>
           </ModalWrapper>

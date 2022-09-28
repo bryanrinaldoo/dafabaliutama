@@ -20,9 +20,6 @@ export const ModalWrapper = styled.div`
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
   z-index: 10;
   border-radius: 10px;
   position: fixed;
@@ -30,6 +27,7 @@ export const ModalWrapper = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   margin-top: 40px;
+  display: flex;
 `;
 
 export const ModalContent = styled.div`
@@ -39,10 +37,7 @@ export const ModalContent = styled.div`
   align-items: center;
   line-height: 1.8;
   color: #141414;
-
-  p{
-    margin-bottom: 1rem;
-  }
+  width: 100%;
 `;
 
 export const CloseModalButton = styled(MdClose)`
@@ -55,4 +50,16 @@ export const CloseModalButton = styled(MdClose)`
   padding: 0;
   z-index: 10;
 `
-// export const ModalImg = styled
+export const SwiperImg = styled.img`
+  object-fit: contain;
+  height: 200px;
+`;
+
+export const SwiperTitle = styled.h1`
+  font-size: 24px;
+  margin-bottom: 12px;
+`;
+
+export const SwiperContent = styled.p`
+  font-size: 18px;
+`

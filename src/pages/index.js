@@ -35,7 +35,7 @@ const Home = () => {
       <Products openModal={openModal}/>
       <Accordion />
       <Footer />
-      <Modal text={dataModal} showModal={showModal} setShowModal={toogleModal} />
+      <Modal datas={dataModal} showModal={showModal} setShowModal={toogleModal} />
     </>
   )
 }
