@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AboutSection from '../components/AboutSection';
 import Accordion from '../components/Accordion';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
@@ -30,7 +31,7 @@ const Home = () => {
       <Sidebar isOpen={isOpen} toogle={toogle}/>
       <Navbar toogle={toogle} />
       <HeroSection />
-      <InfoSection {...homeObjOne} />
+      <AboutSection />
       <InfoSection {...homeObjTwo} />
       <Products openModal={openModal}/>
       <Accordion />

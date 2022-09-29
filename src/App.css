@@ -5,6 +5,7 @@
   padding: 0;
   font-family: 'Encode Sans Expanded', sans-serif;
   --primary-color: #01bf71;
+  --secondary-color: #014026
 }
 
 .logoNav{
@@ -17,6 +18,7 @@
 .swiper {
   width: 100%;
   height: 100%;
+  border-radius: 20px;
 }
 
 .swiper-slide {

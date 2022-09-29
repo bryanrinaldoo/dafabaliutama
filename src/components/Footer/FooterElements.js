@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { MdPhoneEnabled, MdMail } from 'react-icons/md';
 
 export const FooterContainer = styled.footer`
-  background-color: #101522;
+  background-color: #111111;
 `;
 
 export const FooterWrap = styled.div`

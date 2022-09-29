@@ -5,7 +5,7 @@ export const homeObjOne = {
   darkText: true,
   topLine: 'About us',
   headline: 'Visi dan Misi',
-  desc: 'Lorem ea cillum ad sint consequat enim excepteur dolor voluptate ullamco sint sunt. Ut sunt do magna cupidatat aliqua sunt ipsum pariatur eiusmod consectetur. Laboris veniam aliqua aliquip cupidatat veniam nostrud anim. Quis nisi ea ad officia adipisicing irure anim laborum do eu sunt voluptate. Occaecat esse ullamco deserunt magna mollit commodo culpa est.',
+  desc: `Dengan visi ${<span>"Menjadi Partner Bisnis terpercaya"</span>} dan memiliki misi "Menyediakan Produk kulitas terbaik bagi konsumen", PT Dafa Bali Utama selalu berpegang teguh untuk memberikan yang terbaik.`,
   imgStart: false,
   img: require('../../static/img1.svg'),
   alt: 'career progress',

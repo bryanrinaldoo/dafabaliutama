@@ -15,19 +15,25 @@ export const Background = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  width: 800px;
+  max-width: 800px;
+  width: 80%;
   height: 500px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
   z-index: 10;
-  border-radius: 10px;
+  border-radius: 30px;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   margin-top: 40px;
   display: flex;
+
+  @media screen and (max-width: 768px){
+    width: 90%;
+  }
+
 `;
 
 export const ModalContent = styled.div`
@@ -52,7 +58,7 @@ export const CloseModalButton = styled(MdClose)`
 `
 export const SwiperImg = styled.img`
   object-fit: contain;
-  height: 200px;
+  height: 70%;
 `;
 
 export const SwiperTitle = styled.h1`
@@ -61,5 +67,6 @@ export const SwiperTitle = styled.h1`
 `;
 
 export const SwiperContent = styled.p`
+  width: 80%;
   font-size: 18px;
 `

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ProductsContainer = styled.div`
+export const AboutContainer = styled.div`
   height: 800px;
   display: flex;
   flex-direction: column;
@@ -16,11 +16,21 @@ export const ProductsContainer = styled.div`
   }
 `;
 
-export const ProductsWrapper = styled.div`
+export const AboutH1 = styled.h1`
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 64px;
+
+  @media screen and (max-width: 480px){
+    font-size: 2rem;
+  }
+`;
+
+export const AboutWrapper = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   grid-gap: 16px;
   padding: 0 50px;
@@ -31,7 +41,8 @@ export const ProductsWrapper = styled.div`
   }
 `;
 
-export const ProductsCard = styled.div`
+
+export const AboutCard = styled.div`
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -40,39 +51,24 @@ export const ProductsCard = styled.div`
   border-radius: 10px;
   max-height: 340px;
   padding: 30px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  transition: all 0.2s ease-in-out;
   gap: 20px;
-
-  &:hover{
-    transform: scale(1.02);
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
+  
+  p{
+    text-align: center;
   }
 `;
 
-export const ProductsIcon = styled.img`
-  height: 160px;
-  width: 160px;
-  margin-bottom: 10px;
+export const AboutImg = styled.img`
+  max-width: 200px;
+  height: 80%;
 `;
 
-export const ProductsH1 = styled.h1`
-  font-size: 2.5rem;
-  color: var(--secondary-color);
-  margin-bottom: 64px;
+export const AboutTitle = styled.h2`
+  font-size: 18px;
+  color: #010606;
+  margin: 12px 0;
 
   @media screen and (max-width: 480px){
-    font-size: 2rem;
+    font-size: 12px
   }
 `;
-
-export const ProductsH2 = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-`;
-
-export const ProductsP = styled.p`
-  font-size: 1rem;
-  text-align: center;
-`
