@@ -4,7 +4,7 @@ import Accordion from '../components/Accordion';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
 import InfoSection from '../components/InfoSection';
-import { homeObjOne, homeObjTwo } from '../components/InfoSection/Data';
+import { homeObjTwo } from '../components/InfoSection/Data';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar'
 import Products from '../components/Products';
