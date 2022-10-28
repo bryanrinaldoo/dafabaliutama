@@ -23,7 +23,7 @@ const Home = () => {
 
     setShowModal(!showModal);
   }
-  const [dataModal, setDataModal] = useState()
+  // const [dataModal, setDataModal] = useState()
   // const openModal = (data) =>{
   //   toogleModal();
   //   setDataModal(data);
@@ -40,7 +40,7 @@ const Home = () => {
       <ProductsSlide/>
       <Accordion />
       <Footer />
-      <Modal datas={dataModal} showModal={showModal} setShowModal={toogleModal} />
+      {/* <Modal datas={dataModal} showModal={showModal} setShowModal={toogleModal} /> */}
     </>
   )
 }
