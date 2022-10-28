@@ -7,7 +7,7 @@ import InfoSection from '../components/InfoSection';
 import { homeObjTwo } from '../components/InfoSection/Data';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar'
-import Products from '../components/Products';
+// import Products from '../components/Products';
 import ProductsSlide from '../components/ProductsSlide';
 import Sidebar from '../components/Sidebar'
 
@@ -24,11 +24,11 @@ const Home = () => {
     setShowModal(!showModal);
   }
   const [dataModal, setDataModal] = useState()
-  const openModal = (data) =>{
-    toogleModal();
-    setDataModal(data);
-    console.log(data);
-  }
+  // const openModal = (data) =>{
+  //   toogleModal();
+  //   setDataModal(data);
+  //   console.log(data);
+  // }
   return (
     <>
       <Sidebar isOpen={isOpen} toogle={toogle}/>
