@@ -8,6 +8,7 @@ import { homeObjTwo } from '../components/InfoSection/Data';
 import Modal from '../components/Modal';
 import Navbar from '../components/Navbar'
 import Products from '../components/Products';
+import ProductsSlide from '../components/ProductsSlide';
 import Sidebar from '../components/Sidebar'
 
 const Home = () => {
@@ -17,6 +18,9 @@ const Home = () => {
   }
   const [showModal, setShowModal] = useState(false)
   const toogleModal = () =>{
+    const body = document.body;
+    (!showModal) ? body.style.overflow = 'hidden' : body.style.overflow = ''
+
     setShowModal(!showModal);
   }
   const [dataModal, setDataModal] = useState()
@@ -25,7 +29,6 @@ const Home = () => {
     setDataModal(data);
     console.log(data);
   }
-
   return (
     <>
       <Sidebar isOpen={isOpen} toogle={toogle}/>
@@ -33,7 +36,8 @@ const Home = () => {
       <HeroSection />
       <AboutSection />
       <InfoSection {...homeObjTwo} />
-      <Products openModal={openModal}/>
+      {/* <Products openModal={openModal}/> */}
+      <ProductsSlide/>
       <Accordion />
       <Footer />
       <Modal datas={dataModal} showModal={showModal} setShowModal={toogleModal} />

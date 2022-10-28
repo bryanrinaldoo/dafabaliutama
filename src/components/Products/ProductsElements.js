@@ -6,7 +6,7 @@ export const ProductsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: var(--background-primary);
 
   @media screen and (max-width: 768px){
     height: 1100px;

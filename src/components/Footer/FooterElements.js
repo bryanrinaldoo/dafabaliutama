@@ -13,6 +13,9 @@ export const FooterWrap = styled.div`
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
+  @media screen and (max-width: 820px){
+    padding: 0
+  }
 `;
 
 export const FooterLinkContainer = styled.div`
@@ -28,7 +31,7 @@ export const FooterLinkWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 
   @media screen and (max-width: 820px){
     padding-top: 32px;
@@ -49,7 +52,7 @@ export const FooterLinkItem = styled.div`
   @media screen and (max-width: 420px){
     margin: 0;
     padding: 10px;
-    width: 100%;
+    width: 60%;
   }
 `;
 

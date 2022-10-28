@@ -13,11 +13,11 @@ const Footer = () => {
           <FooterLinkItem>
             <FooterLinkTitle>Contact</FooterLinkTitle>
               <FooterLink><MailIcon /> Email</FooterLink>
-              <FooterLink><PhoneIcon /> Nomor</FooterLink>
+              <FooterLink><PhoneIcon /> 0813-3719-3478</FooterLink>
           </FooterLinkItem>
           <FooterLinkItem>
             <FooterLinkTitle>Address</FooterLinkTitle>
-              <FooterLink>Aliqua labore magna elit tempor cillum culpa reprehenderit in irure voluptate tempor nostrud.</FooterLink>
+              <FooterLink>Jl. Jepun, Dauh Peken, Kec. Tabanan, Kabupaten Tabanan, Bali 82113</FooterLink>
           </FooterLinkItem>
         </FooterLinkWrap>
         <FooterRights>© 2022 PT Dafa Bali Utama</FooterRights>

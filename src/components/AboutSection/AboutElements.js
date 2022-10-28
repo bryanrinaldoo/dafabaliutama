@@ -6,13 +6,11 @@ export const AboutContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: var(--background-primary);
 
-  @media screen and (max-width: 768px){
-    height: 1100px;
-  }
-  @media screen and (max-width: 480px){
-    height: 1300px;
+  @media screen and (max-width: 820px){
+    height: 100%;
+    padding: 90px 0px;
   }
 `;
 
@@ -49,12 +47,16 @@ export const AboutCard = styled.div`
   justify-content: flex-start;
   align-items: center;
   border-radius: 10px;
-  max-height: 340px;
+  max-height: 360px;
   padding: 30px;
   gap: 20px;
+  min-height: 360px;
   
   p{
     text-align: center;
+  }
+  @media screen and (max-width: 760px){
+    min-height: 300px;
   }
 `;
 
