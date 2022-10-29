@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link as LinkS } from 'react-scroll'
 
 export const Nav = styled.nav`
-  background: #111111;
+  background: var(--background-nav);
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -75,10 +75,12 @@ export const NavLinks = styled(LinkS)`
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
+  font-weight: 300;
   cursor: pointer;
 
   &.active{
     border-bottom: 3px solid var(--primary-color);
+    color: var(--primary-color);
   }
 `;
 
@@ -96,7 +98,7 @@ export const NavBtnLink = styled.a`
   background: var(--primary-color);
   white-space: nowrap;
   padding: 10px 22px;
-  color: #010606;
+  color: #fff;
   font-size: 16px;
   outline: none;
   border: none;

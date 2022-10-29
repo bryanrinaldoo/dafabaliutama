@@ -15,10 +15,10 @@ const Navbar = ({ toogle }) => {
             <FaBars />
           </MobileIcon>
           <NavMenu>
-            <NavItem><NavLinks to='about'>About</NavLinks></NavItem>
-            <NavItem><NavLinks to='services'>Services</NavLinks></NavItem>
-            <NavItem><NavLinks to='products'>Products</NavLinks></NavItem>
-            <NavItem><NavLinks to='faq'>FAQ</NavLinks></NavItem>
+            <NavItem><NavLinks to='about' spy={true} exact='true' offset={-80}>About</NavLinks></NavItem>
+            <NavItem><NavLinks to='services' spy={true} exact='true' offset={-80}>Services</NavLinks></NavItem>
+            <NavItem><NavLinks to='products' spy={true} exact='true' offset={-80}>Products</NavLinks></NavItem>
+            <NavItem><NavLinks to='faq' spy={true} exact='true' offset={-80}>FAQ</NavLinks></NavItem>
           </NavMenu>
           <NavBtn>
             <NavBtnLink href="https://www.WordPress.com" target="_blank">Contact Us!</NavBtnLink>

@@ -2,12 +2,12 @@ import styled from "styled-components";
 import {MdKeyboardArrowRight, MdArrowForward} from 'react-icons/md'
 
 export const HeroContainer = styled.div`
-  background: #0c0c0c;
+  background: var(--background-secondary);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 30px;
-  height: 800px;
+  min-height: 100vh;
   position: relative;
   z-index: 1;
   @media screen and (max-width: 768px){
@@ -42,7 +42,8 @@ export const HeroH1 = styled.h1`
   color: #fff;
   font-size: 48px;
   text-align: center;
-
+  font-family: var(--font-title);
+  letter-spacing: 2px;
   @media screen and (max-width: 768px){
     font-size: 40px;
   }

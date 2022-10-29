@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ProductsSlideWrapper, ProductsSlideContent, SwiperImg, SwiperTitle, SwiperContent, ProductsSlideH1, ProductsSlideContainer, SwiperText, ProductsSlideTitle, SwiperRow} from './ProductsSlideElements'
+import { ProductsSlideWrapper, ProductsSlideContent, SwiperImg, SwiperTitle, SwiperContent, ProductsSlideH1, ProductsSlideContainer, SwiperText, ProductsSlideTitle, SwiperRow, SwiperImage, SwiperImgText} from './ProductsSlideElements'
 import {products} from './DataProduct'
 
 // Import Swiper React components
@@ -16,8 +16,16 @@ const ProductsSlide = () => {
   const [swiper, setSwiper] = useState();
   const [nameProd, setNameProd] = useState('Crystal Club')
   if(swiper){
+      document.querySelector('.swiper-slide-active .ImageText').classList.add("active")
+      document.querySelector('.swiper-slide-active .ImageImg').classList.add("active")
     swiper.on('slideChange', function(){
       (swiper.activeIndex >=5) ? setNameProd('Stag 5') : setNameProd('Crystal Club')      
+      document.querySelector('.swiper-slide-active .ImageText').classList.remove("active")
+      document.querySelector('.swiper-slide-active .ImageImg').classList.remove("active")
+    })
+    swiper.on('slideChangeTransitionStart', function(){
+      document.querySelector('.swiper-slide-active .ImageText').classList.add("active")
+      document.querySelector('.swiper-slide-active .ImageImg').classList.add("active")
     })
   }
   return (
@@ -32,11 +40,15 @@ const ProductsSlide = () => {
           {products.map((data) => (
             <SwiperSlide>
               <SwiperRow>
-              <SwiperText>
+              {/* *incase mau ada tulisan  */}
+              {/* <SwiperText>
                 <SwiperTitle>{data.name}</SwiperTitle>
                 <SwiperContent>{data.desc}</SwiperContent>
-              </SwiperText>
-              <SwiperImg src={data.img} />
+              </SwiperText> */}
+              <SwiperImage>
+                <SwiperImgText className='ImageText'>{data.name}</SwiperImgText>
+                <SwiperImg className='ImageImg' src={data.img} />
+              </SwiperImage>
               </SwiperRow>
             </SwiperSlide>
           ))}

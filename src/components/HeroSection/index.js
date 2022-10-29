@@ -15,8 +15,8 @@ const HeroSection = () => {
         <img className='logoHome' src={logo} alt="logo"></img>
       </HeroBg>
       <HeroContent>
-        <HeroH1>PT Dafa Bali Utama</HeroH1>
-        <HeroP>Perusahaan yang bergerang di bidang produksi minuman beralkohol golongan C ( kadar alokohol {'>'} 20% ). Berdiri pada tahun 2010 dengan lokasi pabrik di Tbanan, Bali.</HeroP>
+        <HeroH1>PT. Dafa Bali Utama</HeroH1>
+        <HeroP>Perusahaan yang bergerak di bidang produksi minuman beralkohol golongan C (kadar alokohol {'>'} 20%). Berdiri pada tahun 2010 dengan lokasi pabrik di Tabanan, Bali.</HeroP>
         <HeroBtnWrapper>
           <Button to='about' onMouseEnter={onHover} onMouseLeave={onHover} primary='true' dark='true'>
             About us {hover ?  <ArrowRight /> : <ArrowForward /> }
