@@ -59,6 +59,7 @@ export const FooterLinkItem = styled.div`
 export const FooterLinkTitle = styled.h1`
   font-size: 14px;
   margin-bottom: 16px;
+  color: var(--primary-color);
 `;
 
 export const FooterLink = styled.a`
@@ -70,10 +71,6 @@ export const FooterLink = styled.a`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    color: var(--primary-color);
-    transition: 0.3s ease-out;
-  }
 `;
 
 export const PhoneIcon = styled(MdPhoneEnabled)`

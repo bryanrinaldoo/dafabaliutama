@@ -1,12 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Lexend:wght@300;400;500&family=Playfair+Display:wght@500&family=Sorts+Mill+Goudy:ital@1&family=Zen+Antique+Soft&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400&family=Playfair+Display:wght@500&family=Sorts+Mill+Goudy:ital@1&family=Zen+Antique+Soft&display=swap');
 :root {
-  /* --font-base: 'Encode Sans Expanded', serif; */
-  /* --font-base: 'Crimson Text', serif; */
-  --font-base: 'Lexend', serif;
+  --font-base: 'Inter Tight', serif;
   --font-alt: 'Playfair Display', sans-serif;
   --font-product: 'Sorts Mill Goudy', sans-serif;
   --font-title: 'Zen Antique Soft', sans-serif;
-
 }
 
 * {

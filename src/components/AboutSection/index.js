@@ -8,7 +8,7 @@ const AboutSection = () => {
   return (
     <>
       <AboutContainer id='about'>
-        <AboutH1>About us</AboutH1>
+        <AboutH1>ABOUT US</AboutH1>
         <AboutWrapper>
           <AboutCard>
             <AboutImg src={visionImg}/>

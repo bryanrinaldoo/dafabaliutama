@@ -55,12 +55,13 @@ export const HeroH1 = styled.h1`
 export const HeroP = styled.p`
   margin-top: 24px;
   color: #fff;
-  font-size: 24px;
+  font-size: 18px;
   text-align: center;
   max-width: 600px;
+  font-weight: 300;
 
   @media screen and (max-width: 480px){
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 

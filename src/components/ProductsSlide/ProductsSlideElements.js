@@ -2,7 +2,7 @@ import styled from "styled-components";
 import back1 from '../../static/back1.png'
 
 export const ProductsSlideContainer = styled.div`
-  padding-top: 10px;
+  padding-top: 40px;
   background: var(--background-primary);
   height: 100%;
   height: 110vh;

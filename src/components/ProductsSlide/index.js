@@ -32,7 +32,7 @@ const ProductsSlide = () => {
     <>
     <ProductsSlideContainer id='products'>
 
-      <ProductsSlideH1>Our Products</ProductsSlideH1>
+      <ProductsSlideH1>OUR PRODUCTS</ProductsSlideH1>
       <ProductsSlideTitle>{nameProd}</ProductsSlideTitle>
       <ProductsSlideWrapper>
         <ProductsSlideContent>
