@@ -45,7 +45,7 @@ export const FooterLinkItem = styled.div`
   flex-direction: column;
   margin: 16px;
   text-align: center;
-  width: 160px;
+  width: 200px;
   box-sizing: border-box;
   color: #fff;
   

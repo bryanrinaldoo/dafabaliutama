@@ -12,8 +12,8 @@ const Footer = () => {
           </FooterLinkItem>
           <FooterLinkItem>
             <FooterLinkTitle>Contact</FooterLinkTitle>
-              <FooterLink><MailIcon /> Email</FooterLink>
-              <FooterLink><PhoneIcon /> 0813-3719-3478</FooterLink>
+              <FooterLink><MailIcon /> dafabaliutamajkt@gmail.com</FooterLink>
+              <FooterLink><PhoneIcon /> 0878-8017-1188</FooterLink>
           </FooterLinkItem>
           <FooterLinkItem>
             <FooterLinkTitle>Address</FooterLinkTitle>
