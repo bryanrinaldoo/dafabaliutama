@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {FaArrowCircleLeft, FaArrowCircleRight} from 'react-icons/fa'
+
 
 export const InfoContainer = styled.div`
   color: #fff;
@@ -43,6 +45,7 @@ export const Column1 = styled.div`
 `;
 
 export const Column2 = styled.div`
+  min-width: 100%;
   margin-bottom: 15px;
   padding: 0 15px;
   grid-area: col2;
@@ -92,12 +95,43 @@ export const BtnWrap = styled.div`
 `;
 
 export const ImgWrap = styled.div`
+  display: flex;
   max-width: 555px;
-  height: 100%;
+  height: auto;
 `;
 
 export const Img = styled.img`
   width: 100%;
   margin: 0 0 10px 0;
   padding-right: 0;
+  padding: 2px;
 `
+
+export const SwiperContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.8;
+  color: #141414;
+  width: 100%;
+`;
+
+export const SwiperWrapper = styled.div`
+  margin: 20px;
+  border-radius: 20px;
+  height: 67vh;
+  display: flex;
+`;
+
+export const BtnNavigation = styled.div`
+  display: flex;
+  gap: 10px;
+`
+export const LeftIcon = styled(FaArrowCircleLeft)`
+  font-size: 30px;
+  color: #fff;
+`;
+export const RightIcon = styled(FaArrowCircleRight)`
+  font-size: 30px;
+  color: #fff;
+`;

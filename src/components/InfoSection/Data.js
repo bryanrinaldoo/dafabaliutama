@@ -26,8 +26,5 @@ export const homeObjTwo = {
   alt: 'career progress',
   
   // Button
-  isButton: true,
-  buttonLabel: 'Our Products',
-  dark: true,
-  primary: true,
+  isButton: false,
 }

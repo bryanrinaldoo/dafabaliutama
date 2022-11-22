@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import back1 from '../../static/back1.png'
 
 export const ProductsSlideContainer = styled.div`
   padding-top: 40px;
@@ -14,13 +13,6 @@ export const ProductsSlideWrapper = styled.div`
   border-radius: 20px;
   height: 67vh;
   display: flex;
-  /* background-image:  url(${back1});
-  background-image: linear-gradient(rgba(255, 255, 255, 0.527),rgba(200, 200, 200, 0.7)) , url(${back1});
-  background-position: 10% 40%;
-  background-repeat: no-repeat;
-  background-size: contain; */
-  /* background: rgb(208,164,183);
-  background: linear-gradient(90deg, rgba(208,164,183,1) 0%, rgba(255,83,83,0.9251050762101716) 0%, rgba(205,148,113,1) 100%); */
 `;
 export const ProductsSlideH1 = styled.h1`
   padding-top: 10px;
@@ -132,8 +124,8 @@ export const SwiperImg = styled.img`
   top: 50%;
   transform: translate(-50%, -50%);
   object-fit: contain;
-  max-width: 500px;
-  height: 500px;
+  max-width: 700px;
+  height: 700px;
   @media screen and (max-width: 768px){
     height: 350px;
   }
