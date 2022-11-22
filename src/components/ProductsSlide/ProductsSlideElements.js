@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const ProductsSlideContainer = styled.div`
   padding-top: 40px;
-  background: var(--background-primary);
+  background: var(--background-secondary);
   height: 100%;
   height: 110vh;
-  /* background: var(--background-primary); */
+  @media screen and (max-width: 768px){
+    padding-top: 80px;
+  }
 `;
 
 export const ProductsSlideWrapper = styled.div`
@@ -71,7 +73,7 @@ export const SwiperImage = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   /* grid-area: col1; */
   `;
 export const SwiperImgText = styled.p`
@@ -122,15 +124,15 @@ export const SwiperImg = styled.img`
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-52%, -50%);
   object-fit: contain;
   max-width: 700px;
   height: 700px;
   @media screen and (max-width: 768px){
-    height: 350px;
+    height: 600px;
   }
   @media screen and (max-width: 480px){
-    height: 300px;
+    height: 400px;
   }
   transition: all 3s;
   opacity: 0;
