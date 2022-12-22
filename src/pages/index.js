@@ -37,7 +37,7 @@ const Home = () => {
       <AboutSection />
       <InfoSection {...homeObjTwo} />
       <ProductsSlide/>
-      <Events />
+      {/* <Events /> */}
       <Accordion />
       <Footer />
       {/* <Modal datas={dataModal} showModal={showModal} setShowModal={toogleModal} /> */}

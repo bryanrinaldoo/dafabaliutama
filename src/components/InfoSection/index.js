@@ -3,10 +3,10 @@ import { Button } from '../ButtonElement';
 import {InfoContainer, InfoWrapper, InfoRow, Column1, Column2, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, Img, ImgWrap, SwiperContent, SwiperWrapper, BtnNavigation, LeftIcon, RightIcon } from './InfoElements';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import factory1 from '../../static/factory1.webp'
-import factory2 from '../../static/factory2.webp'
-import factory3 from '../../static/factory3.webp'
-import factory4 from '../../static/factory4.webp'
+import factory1 from '../../static/company1.jpg'
+import factory2 from '../../static/company2.jpg'
+import factory3 from '../../static/company3.jpg'
+import factory4 from '../../static/company4.jpg'
 
 // Import Swiper styles
 import "swiper/css";

@@ -19,7 +19,7 @@ const Sidebar = ({isOpen, toogle}) => {
           </SidebarMenu>
         </SidebarWrapper>
         <SideBtnWrap>
-          <SidebarRoute href="https://www.WordPress.com" target="_blank"> Logo </SidebarRoute>
+          <SidebarRoute href="https://wa.me/6287880171188" target="_blank"> Contact Us! </SidebarRoute>
         </SideBtnWrap>
       </SidebarContainer>
     </>

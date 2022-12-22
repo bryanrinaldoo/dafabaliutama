@@ -22,7 +22,7 @@ const Navbar = ({ toogle }) => {
             <NavItem><NavLinks to='faq' spy={true} exact='true' offset={-80}>FAQ</NavLinks></NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink href="https://www.WordPress.com" target="_blank">Contact Us!</NavBtnLink>
+            <NavBtnLink href="https://wa.me/6287880171188" target="_blank">Contact Us!</NavBtnLink>
           </NavBtn>
         </NavbarContainer>
       </Nav>
