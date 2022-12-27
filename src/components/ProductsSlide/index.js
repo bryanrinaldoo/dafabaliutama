@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ProductsSlideWrapper, ProductsSlideContent, SwiperImg, SwiperTitle, SwiperContent, ProductsSlideH1, ProductsSlideContainer, SwiperText, ProductsSlideTitle, SwiperRow, SwiperImage, SwiperImgText} from './ProductsSlideElements'
+import { ProductsSlideWrapper, ProductsSlideContent, SwiperImg, ProductsSlideH1, ProductsSlideContainer, ProductsSlideTitle, SwiperRow, SwiperImage, SwiperImgText, SwiperTitle, SwiperContent, SwiperText} from './ProductsSlideElements'
 import {products} from './DataProduct'
 
 // Import Swiper React components
