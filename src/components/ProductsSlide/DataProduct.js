@@ -45,3 +45,26 @@ export const products= [
     desc: ''
   },
 ];
+
+export const soju = [
+  {
+    img: require('../../static/e3.JPG'),
+    name: 'Original',
+    bg: require('../../static/bg1.webp')
+  },
+  {
+    img: require('../../static/e1.JPG'),
+    name: 'Grape',
+    bg: require('../../static/bg1.webp')
+  },
+  {
+    img: require('../../static/e2.JPG'),
+    name: 'Lychee',
+    bg: require('../../static/bg1.webp')
+  },
+  {
+    img: require('../../static/e4.JPG'),
+    name: 'Orange',
+    bg: require('../../static/bg1.webp')
+  },
+]

@@ -11,7 +11,6 @@ export const ProductsSlideContainer = styled.div`
 `;
 
 export const ProductsSlideWrapper = styled.div`
-  margin: 20px;
   border-radius: 20px;
   height: 67vh;
   display: flex;
@@ -73,9 +72,9 @@ export const SwiperImage = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, 0.6);
   /* grid-area: col1; */
   `;
+
 export const SwiperImgText = styled.p`
   font-family: var(--font-alt);
   font-size: 8rem;
@@ -86,6 +85,7 @@ export const SwiperImgText = styled.p`
   transform: translate(-100%, 0%);
   transition: all 0.5s;
   opacity: 0;
+  color: rgba(255, 255, 255, 0.6);
   &.active{
     transform: translate(-47%, 0%);
     transition: all 1.5s;
@@ -98,6 +98,78 @@ export const SwiperImgText = styled.p`
   
 `
 
+export const SwiperImg = styled.img`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-52%, -55%);
+  object-fit: contain;
+  max-width: 700px;
+  height: 700px;
+  @media screen and (max-width: 768px){
+    height: 600px;
+  }
+  @media screen and (max-width: 480px){
+    height: 400px;
+  }
+  transition: all 3s;
+  opacity: 0;
+  
+  &.active{
+    opacity: 1;
+  }
+`
+
+export const ProductsSlideContainerSoju = styled.div`
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+`;
+
+export const SwiperImageSoju = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.6);
+  `;
+
+export const SwiperImgTextSoju = styled.p`
+  z-index: 1;
+  font-family: var(--font-alt);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  @media screen and (max-width: 768px){
+    font-size: 1.5rem;
+    letter-spacing: 1rem;
+  }
+  
+`
+
+export const SwiperImgSoju = styled.img`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 65%;
+  border-radius: 30px;
+`
+// export const SwiperImgSoju = styled.div`
+//   min-width: 100% ;
+//   min-height: 100% ;
+//   background-image: ${({bgImg}) => `url(${bgImg})`};
+//   background-repeat: no-repeat;
+//   background-attachment: fixed;
+//   background-position: center;
+// `
+
+// !belum kepake 
 export const SwiperTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 12px;
@@ -120,24 +192,4 @@ export const SwiperText = styled.div`
   flex-direction: column;
   grid-area: col2;
 `
-export const SwiperImg = styled.img`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-52%, -50%);
-  object-fit: contain;
-  max-width: 700px;
-  height: 700px;
-  @media screen and (max-width: 768px){
-    height: 600px;
-  }
-  @media screen and (max-width: 480px){
-    height: 400px;
-  }
-  transition: all 3s;
-  opacity: 0;
-  
-  &.active{
-    opacity: 1;
-  }
-`
+
