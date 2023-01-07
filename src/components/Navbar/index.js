@@ -18,7 +18,7 @@ const Navbar = ({ toogle }) => {
             <NavItem><NavLinks to='about' spy={true} exact='true' offset={-80}>About</NavLinks></NavItem>
             <NavItem><NavLinks to='services' spy={true} exact='true' offset={-80}>Services</NavLinks></NavItem>
             <NavItem><NavLinks to='products' spy={true} exact='true' offset={-80}>Products</NavLinks></NavItem>
-            <NavItem><NavLinks to='events' spy={true} exact='true' offset={-80}>Events</NavLinks></NavItem>
+            {/* <NavItem><NavLinks to='events' spy={true} exact='true' offset={-80}>Events</NavLinks></NavItem> */}
             <NavItem><NavLinks to='faq' spy={true} exact='true' offset={-80}>FAQ</NavLinks></NavItem>
           </NavMenu>
           <NavBtn>
