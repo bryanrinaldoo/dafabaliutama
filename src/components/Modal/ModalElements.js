@@ -12,9 +12,11 @@ export const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `;
 
 export const ModalWrapper = styled.div`
+  z-index: 1000;
   width: 70%;
   height: 500px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);

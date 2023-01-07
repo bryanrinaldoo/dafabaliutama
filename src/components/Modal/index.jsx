@@ -27,6 +27,7 @@ const Modal = ({ showModal, setShowModal}) => {
                 <ProductsSlideContent>
                 <Swiper 
                   slidesPerView={1}
+                  spaceBetween= {10}
                   breakpoints={{
                     768: {
                       slidesPerView: 3,

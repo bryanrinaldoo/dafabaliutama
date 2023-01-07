@@ -1,19 +1,18 @@
 import React from 'react';
 import {InfoContainer, InfoWrapper, InfoRow, Column1, Column2, TextWrapper, TopLine, Heading, Subtitle, BtnWrap, Img, ImgWrap, SwiperContent, SwiperWrapper, BtnNavigation, LeftIcon, RightIcon } from './InfoElements';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/autoplay";
 
-
-// import required modules
-
+// import required modules\
 import { useState } from 'react';
 import { Button } from '../ButtonElement';
-// import img from '../../static/img1.svg'
+import { Autoplay } from 'swiper';
+
 const InfoSection = ({lightBg, id, imgStart, topLine, 
   lightText, headline, darkText, desc, buttonLabel, alt, isButton, 
   primary, dark, dark2, slidesDataImg, openModal}) => {
@@ -28,10 +27,6 @@ const InfoSection = ({lightBg, id, imgStart, topLine,
                 <TopLine>{topLine}</TopLine>
                 <Heading lightText={lightText}>{headline}</Heading>
                 <Subtitle darkText={darkText} >{desc}</Subtitle>
-                <BtnNavigation>
-                  <LeftIcon onClick={() => swiper.slidePrev()}/>
-                  <RightIcon onClick={() => swiper.slideNext()}/>
-                </BtnNavigation>
                 <BtnWrap isButton={isButton}>
 
                   <Button
@@ -52,9 +47,16 @@ const InfoSection = ({lightBg, id, imgStart, topLine,
             <SwiperWrapper>
 
             <SwiperContent>
-              <Swiper navigation={{
-                nextEl: '.next',
-                prevEl: '.prev',}}  loop={true} allowTouchMove={false} className="swiper" onSwiper={(swiper) => setSwiper(swiper)}> 
+              <Swiper 
+                loop={true} 
+                allowTouchMove={false} 
+                className="swiper" 
+                modules={[Autoplay]} 
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false
+                }} 
+                > 
                 {slidesDataImg.map((data) => (
                   <SwiperSlide>
                     <ImgWrap>
