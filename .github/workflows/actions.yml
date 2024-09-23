@@ -26,8 +26,8 @@ jobs:
     - name: 📂 Sync filess
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
+        server: ftp.dafabaliutama.com
+        username: ftpgithub@dafabaliutama.com
         password: ${{ secrets.FTP_PASSWORD }}
         dangerous-clean-state: true
         local-dir: ./build/
