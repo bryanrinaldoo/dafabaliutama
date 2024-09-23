@@ -1,8 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/u1578211/public_html/
-    - mkdir -p $DEPLOYPATH
-    - npm install
-    - npm run build
-    - cp -R build/* $DEPLOYPATH

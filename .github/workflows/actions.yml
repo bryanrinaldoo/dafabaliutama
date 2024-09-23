@@ -31,3 +31,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         dangerous-clean-state: true
         local-dir: ./build/
+        timeout: 100000
