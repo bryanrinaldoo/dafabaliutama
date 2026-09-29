@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProductsSlideWrapper, ProductsSlideContent, SwiperImg, ProductsSlideH1, ProductsSlideContainer, ProductsSlideTitle, SwiperRow, SwiperImage, SwiperImgText } from './ProductsSlideElements'
 import {products} from './DataProduct'
 
@@ -15,19 +15,35 @@ import { Navigation } from "swiper";
 const ProductsSlide = () => {
   const [swiper, setSwiper] = useState();
   const [nameProd, setNameProd] = useState('Crystal Club')
-  if(swiper){
-      document.querySelector('.swiper-slide-active .ImageText').classList.add("active")
-      document.querySelector('.swiper-slide-active .ImageImg').classList.add("active")
-    swiper.on('slideChange', function(){
-      (swiper.activeIndex >=5) ? setNameProd('Stag 5') : setNameProd('Crystal Club')      
-      document.querySelector('.swiper-slide-active .ImageText').classList.remove("active")
-      document.querySelector('.swiper-slide-active .ImageImg').classList.remove("active")
-    })
-    swiper.on('slideChangeTransitionStart', function(){
-      document.querySelector('.swiper-slide-active .ImageText').classList.add("active")
-      document.querySelector('.swiper-slide-active .ImageImg').classList.add("active")
-    })
-  }
+
+  useEffect(() => {
+    if (!swiper) return;
+
+    const activeText = () => document.querySelector('.swiper-slide-active .ImageText');
+    const activeImage = () => document.querySelector('.swiper-slide-active .ImageImg');
+    const addActiveClass = () => {
+      activeText()?.classList.add('active');
+      activeImage()?.classList.add('active');
+    };
+    const removeActiveClass = () => {
+      activeText()?.classList.remove('active');
+      activeImage()?.classList.remove('active');
+    };
+    const handleSlideChange = () => {
+      setNameProd(swiper.activeIndex >= 5 ? 'Stag 5' : 'Crystal Club');
+      removeActiveClass();
+    };
+
+    addActiveClass();
+    swiper.on('slideChange', handleSlideChange);
+    swiper.on('slideChangeTransitionStart', addActiveClass);
+
+    return () => {
+      swiper.off('slideChange', handleSlideChange);
+      swiper.off('slideChangeTransitionStart', addActiveClass);
+    };
+  }, [swiper]);
+
   return (
     <>
     <ProductsSlideContainer id='products'>
@@ -38,7 +54,7 @@ const ProductsSlide = () => {
         <ProductsSlideContent>
         <Swiper navigation={true} modules={[Navigation]} className="swiper" onSwiper={(swiper) => setSwiper(swiper)}>
           {products.map((data) => (
-            <SwiperSlide>
+            <SwiperSlide key={data.name}>
               <SwiperRow>
               {/* *incase mau ada tulisan  */}
               {/* <SwiperText>
