@@ -1,34 +1,53 @@
-on: 
-  push: 
-    branches: master
+name: Deploy Next.js to GitHub Pages
 
-name: 🚀 Deploy website on push
+on:
+  push:
+    branches: ["main"] # Change to "master" if your default branch uses it
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-      
-    - name: 🔨 Build Project
-      run: |
-        npm install
-        npm run build
-      env:
-        CI: false
-    
-    - name: 📂 Sync filess
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      with:
-        server: ftp.dafabaliutama.com
-        username: ftpgithub@dafabaliutama.com
-        password: ${{ secrets.FTP_PASSWORD }}
-        dangerous-clean-state: true
-        local-dir: ./build/
-        timeout: 1000000
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Use your project's active Node version
+          cache: npm
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Next.js
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out # Next.js exports static files into the ./out directory
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
