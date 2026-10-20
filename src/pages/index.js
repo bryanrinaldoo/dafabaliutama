@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { bottles, email, faq, logo, plant, soju, strip, venues, whatsapp } from '../content';
+import React, { useEffect, useRef, useState } from 'react';
+import { bottles, email, faq, haluu, haluuInstagram, haluuShop, logo, plant, pours, soju, strip, whatsapp } from '../content';
 
 const links = [
-  ['#produk', 'Produk'],
+  ['#bottles', 'Bottles'],
+  ['#haluu', 'Haluu'],
   ['#soju', 'Soju'],
-  ['#perusahaan', 'Perusahaan'],
-  ['#tanya', 'Tanya jawab'],
+  ['#company', 'Company'],
+  ['#faq', 'FAQ'],
 ];
 
 // Each chapter tells the fixed header which ground and ink sit under it.
 const chapter = (bg, ink) => ({ 'data-bg': bg, 'data-ink': ink });
+
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const Lines = ({ lines }) => lines.map((text, i) => (
   <span className="line" key={text}><span style={{ '--i': i }}>{text}</span></span>
@@ -17,15 +20,15 @@ const Lines = ({ lines }) => lines.map((text, i) => (
 
 const Header = ({ onMenu }) => (
   <header className="header" style={{ '--logo': `url(${new URL(logo, document.baseURI).href})` }}>
-    <a className="wordmark" href="#top" aria-label="Dafa Bali Utama, ke atas">
+    <a className="wordmark" href="#top" aria-label="Dafa Bali Utama, back to top">
       <span className="wordmark__mark" aria-hidden="true" />
       Dafa Bali Utama
     </a>
-    <nav className="nav" aria-label="Utama">
+    <nav className="nav" aria-label="Main">
       <ul className="nav__links">
         {links.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}
       </ul>
-      <a className="button" href={whatsapp} target="_blank" rel="noreferrer">Pesan</a>
+      <a className="button" href={whatsapp} target="_blank" rel="noreferrer">Order</a>
       <button className="menu-toggle" type="button" onClick={onMenu} aria-haspopup="dialog">Menu</button>
     </nav>
   </header>
@@ -33,62 +36,191 @@ const Header = ({ onMenu }) => (
 
 const Menu = ({ open, onClose }) => (
   <div className={`menu${open ? ' is-open' : ''}`} role="dialog" aria-modal="true" aria-label="Menu" aria-hidden={!open}>
-    <button className="menu__close" type="button" onClick={onClose} tabIndex={open ? 0 : -1}>Tutup</button>
+    <button className="menu__close" type="button" onClick={onClose} tabIndex={open ? 0 : -1}>Close</button>
     <ul>
       {links.map(([href, label], i) => (
         <li key={href} style={{ '--i': i }}><a className="display" href={href} onClick={onClose} tabIndex={open ? 0 : -1}>{label}</a></li>
       ))}
     </ul>
-    <a className="button" href={whatsapp} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>Pesan lewat WhatsApp</a>
+    <a className="button" href={whatsapp} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>Order on WhatsApp</a>
   </div>
 );
 
 // The page opens as a glass being filled: gold rises to the seam between the headline's two lines.
-const Hero = () => {
-  const title = ['Dituang', 'di Bali'];
+const Hero = () => (
+  <section className="hero" id="top" {...chapter('#ffffff', '#0b0b0b')}>
+    <div className="hero__low" aria-hidden="true" />
+    <h1 className="hero__title display"><Lines lines={['Poured', 'in Bali']} /></h1>
+    <div className="hero__foot">
+      <p className="hero__lead">PT Dafa Bali Utama makes Crystal Club, Stag 5, Everyday Soju and Haluu spirits in Tabanan, Bali, since 2010.</p>
+      <a className="button" href="#bottles" style={{ '--i': 1 }}>See the bottles</a>
+    </div>
+  </section>
+);
+
+const ROTATE_MS = 3600;
+
+// The bottles turn on their own; any click, swipe or key takes over and pauses the turning.
+const Showcase = () => {
+  const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+  const touch = useRef(null);
+  const n = bottles.length;
+  const go = (i) => setActive((i + n) % n);
+  const pick = (i) => { setPlaying(false); go(i); };
+
+  useEffect(() => {
+    if (reducedMotion()) setPlaying(false);
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.35 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!playing || !visible) return undefined;
+    const id = setTimeout(() => setActive((a) => (a + 1) % n), ROTATE_MS);
+    return () => clearTimeout(id);
+  }, [playing, visible, active, n]);
+
+  const onKey = (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); pick(active + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); pick(active - 1); }
+  };
+  const bottle = bottles[active];
+  const offset = (i) => {
+    let d = i - active;
+    if (d > n / 2) d -= n;
+    if (d < -n / 2) d += n;
+    return d;
+  };
+
   return (
-    <section className="hero" id="top" {...chapter('#ffffff', '#0b0b0b')}>
-      <div className="hero__low" aria-hidden="true" />
-      <h1 className="hero__title display"><Lines lines={title} /></h1>
-      <div className="hero__foot">
-        <p className="hero__lead">PT Dafa Bali Utama membuat minuman beralkohol Crystal Club, Stag 5 dan Everyday Soju di Tabanan sejak 2010.</p>
-        <a className="button" href="#produk" style={{ '--i': 1 }}>Lihat produk</a>
+    <section
+      className={`showcase${playing && visible ? ' is-playing' : ''}`}
+      id="bottles"
+      ref={ref}
+      {...chapter('#ffffff', '#0b0b0b')}
+      aria-labelledby="bottles-title"
+      aria-roledescription="carousel"
+      style={{ '--disc-colour': bottle.disc, '--rotate': `${ROTATE_MS}ms` }}
+    >
+      <h2 className="showcase__title display lines" id="bottles-title" data-lines><Lines lines={['Seven bottles']} /></h2>
+      <div
+        className="carousel"
+        onKeyDown={onKey}
+        onTouchStart={(e) => { touch.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          if (touch.current == null) return;
+          const dx = e.changedTouches[0].clientX - touch.current;
+          if (Math.abs(dx) > 40) pick(active + (dx < 0 ? 1 : -1));
+          touch.current = null;
+        }}
+      >
+        <button className="carousel__arrow carousel__arrow--prev" type="button" onClick={() => pick(active - 1)} aria-label="Previous bottle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" /></svg>
+        </button>
+        <div className="carousel__stage">
+          <div className="disc" aria-hidden="true" key={active} />
+          {bottles.map((b, i) => {
+            const d = offset(i);
+            return (
+              <img
+                key={`${b.brand}-${b.name}`}
+                className="bottle"
+                data-offset={Math.max(-2, Math.min(2, d))}
+                src={b.img}
+                alt={d === 0 ? `${b.brand} ${b.name} bottle` : ''}
+                aria-hidden={d !== 0}
+                onClick={() => d !== 0 && pick(i)}
+                width="340"
+                height="1100"
+              />
+            );
+          })}
+        </div>
+        <button className="carousel__arrow carousel__arrow--next" type="button" onClick={() => pick(active + 1)} aria-label="Next bottle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8" /></svg>
+        </button>
+      </div>
+      <div className="showcase__caption" aria-live="polite">
+        <p className="showcase__name" key={active}><span>{bottle.brand}</span> {bottle.name}</p>
+        <p className="showcase__fact">{bottle.fact}</p>
+      </div>
+      <div className="showcase__controls">
+        <div className="dots" role="group" aria-label="Choose a bottle">
+          {bottles.map((b, i) => (
+            <button key={`${b.brand}-${b.name}`} type="button" className="dot" aria-pressed={i === active} aria-label={`${b.brand} ${b.name}`} onClick={() => pick(i)}>
+              <span className="dot__fill" />
+            </button>
+          ))}
+        </div>
+        <button className="play" type="button" onClick={() => setPlaying((p) => !p)}>{playing ? 'Pause' : 'Play'}</button>
       </div>
     </section>
   );
 };
 
-const Showcase = () => {
-  const [active, setActive] = useState(0);
-  const bottle = bottles[active];
+// Haluu: a held stage where the bottle turns to the next flavour as the visitor scrolls.
+const Haluu = () => {
+  const section = useRef(null);
+  const canvas = useRef(null);
+  const [step, setStep] = useState(0);
+  const [live, setLive] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion() || !window.WebGLRenderingContext) return undefined;
+    let dispose;
+    let cancelled = false;
+    import('../haluu3d').then(({ mount }) => {
+      if (cancelled) return;
+      try {
+        dispose = mount({ canvas: canvas.current, section: section.current, flavours: haluu, onStep: setStep });
+        setLive(true);
+      } catch (err) {
+        // No WebGL: the flavours stay as the plain stacked list below.
+      }
+    });
+    return () => { cancelled = true; if (dispose) dispose(); };
+  }, []);
+
+  const f = haluu[step];
   return (
-    <section className="showcase" id="produk" {...chapter('#ffffff', '#0b0b0b')} aria-label="Produk">
-      <div className="showcase__list" role="group" aria-label="Pilih botol">
-        <h2 data-reveal>Pilih botolnya</h2>
-        {bottles.map((b, i) => (
-          <button key={b.name} type="button" aria-pressed={i === active} onClick={() => setActive(i)} data-reveal style={{ '--i': i + 1 }}>
-            {b.name}
-          </button>
-        ))}
-      </div>
-      <div className="showcase__stage" style={{ '--disc-colour': bottle.disc }}>
-        <div className="disc" />
-        <div className="bottles">
-          {bottles.map((b, i) => (
-            <img key={b.name} className={`bottle${i === active ? ' is-on' : ''}`} src={b.img} alt={i === active ? `Botol ${b.name.startsWith(b.brand) ? b.name : `${b.brand} ${b.name}`}` : ''} aria-hidden={i !== active} width="340" height="1100" />
-          ))}
+    <section ref={section} className={`haluu${live ? ' is-live' : ''}`} id="haluu" style={{ '--steps': haluu.length, '--field': f.field }} aria-labelledby="haluu-title">
+      <div className="haluu__stage" {...chapter(haluu[0].field, '#0b0b0b')}>
+        <canvas ref={canvas} className="haluu__canvas" aria-hidden="true" />
+        <div className="haluu__intro">
+          <h2 className="haluu__title display" id="haluu-title">Haluu</h2>
+          <p>Our newest line: flavoured liqueurs that taste like Indonesian desserts and street drinks. 350 ml.</p>
         </div>
-        <p className="showcase__fact" aria-live="polite">
-          <strong>{bottle.brand}</strong>
-          {bottle.fact}
-        </p>
+        <div className="haluu__now" aria-live="polite">
+          <p className="haluu__flavour display" key={f.name}>{f.name}</p>
+          <p className="haluu__note" key={`${f.name}-note`}>{f.note}</p>
+          <p className="haluu__count">{step + 1} of {haluu.length}</p>
+        </div>
+        <div className="haluu__links">
+          <a className="button" href={haluuShop} target="_blank" rel="noreferrer">Shop Haluu</a>
+          <a className="link" href={haluuInstagram} target="_blank" rel="noreferrer">@haluudrinks</a>
+        </div>
       </div>
+      <ol className="haluu__list">
+        {haluu.map((item) => (
+          <li key={item.name} style={{ '--field': item.field }}>
+            <img src={item.img} alt={`Haluu ${item.name} bottle`} loading="lazy" width="362" height="837" />
+            <div>
+              <h3 className="display">{item.name}</h3>
+              <p>{item.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 };
 
 const Plant = () => (
-  <section className="plant" id="pabrik" {...chapter('#0b0b0b', '#ffffff')} aria-labelledby="pabrik-title">
+  <section className="plant" id="plant" {...chapter('#0b0b0b', '#ffffff')} aria-labelledby="plant-title">
     {plant.map((t, i) => {
       const style = { '--t-bg': t.bg, '--t-ink': t.ink, '--i': i % 4 };
       if (t.kind === 'photo') {
@@ -100,7 +232,7 @@ const Plant = () => (
         );
       }
       if (t.kind === 'heading') {
-        return <div className="tile" key={t.word} style={style}><h2 className="tile__word display" id="pabrik-title">{t.word}</h2></div>;
+        return <div className="tile" key={t.word} style={style}><h2 className="tile__word display" id="plant-title">{t.word}</h2></div>;
       }
       return (
         <div className="tile" key={t.caption} data-reveal style={style}>
@@ -117,19 +249,19 @@ const Soju = () => (
     <h2 className="chapter-title display lines" id="soju-title" data-lines><Lines lines={['Everyday', 'Soju']} /></h2>
     <div className="soju__grid">
       <div className="soju__text">
-        <p className="lead" data-reveal>Rasa Indonesia dan Korea dalam satu botol hijau, produk terbaru kami.</p>
-        <p data-reveal style={{ '--i': 1 }}>Dibuat dari bahan terbaik di pabrik yang sama dengan Crystal Club, untuk satu tujuan: minum yang menyenangkan. Have fun every second, every minute, every hour, everyday.</p>
-        <a className="button" href={whatsapp} target="_blank" rel="noreferrer" data-reveal style={{ '--i': 2, background: 'var(--ink)', color: '#fff', justifySelf: 'start' }}>Pesan Everyday Soju</a>
+        <p className="lead" data-reveal>The taste of Indonesia and Korea in one green bottle.</p>
+        <p data-reveal style={{ '--i': 1 }}>Made from the best ingredients in the same plant as Crystal Club, for one purpose: drinking that’s fun. Have fun every second, every minute, every hour, everyday.</p>
+        <a className="button" href={whatsapp} target="_blank" rel="noreferrer" data-reveal style={{ '--i': 2, background: 'var(--ink)', color: '#fff', justifySelf: 'start' }}>Order Everyday Soju</a>
       </div>
       <figure className="soju__window">
-        <img src={soju.hero} alt="Empat botol Everyday Soju berjajar di depan dinding hijau" loading="lazy" width="933" height="1400" />
+        <img src={soju.hero} alt="Four bottles of Everyday Soju lined up against a green wall" loading="lazy" width="933" height="1400" />
       </figure>
     </div>
-    <ul className="flavours" aria-label="Empat rasa">
+    <ul className="flavours" aria-label="Four flavours">
       {soju.flavours.map((f, i) => (
         <li className="flavour" key={f.name} data-reveal style={{ '--i': i }}>
           <figure>
-            <div className="flavour__frame"><img src={f.img} alt={`Botol Everyday Soju rasa ${f.name}`} loading="lazy" width="933" height="1400" /></div>
+            <div className="flavour__frame"><img src={f.img} alt={`Everyday Soju, ${f.name} flavour`} loading="lazy" width="933" height="1400" /></div>
             <figcaption>{f.name}</figcaption>
           </figure>
         </li>
@@ -140,41 +272,39 @@ const Soju = () => (
 
 const Company = () => {
   const marks = [
-    ['2010', 'var(--gold)'], ['Tabanan, Bali', 'var(--green)'], ['golongan C', 'var(--gold)'],
-    ['BPOM', 'var(--green)'], ['pita cukai resmi', '#ffffff'], ['NPPBKC dan SIUP MB', '#ffffff'],
+    ['2010', 'var(--gold)'], ['Tabanan, Bali', 'var(--green)'], ['class C', 'var(--gold)'],
+    ['BPOM', 'var(--green)'], ['an official excise band', '#ffffff'], ['an NPPBKC and a SIUP MB', '#ffffff'],
   ];
   const m = (i) => <span className="mark" style={{ '--hl': marks[i][1], '--i': i }}>{marks[i][0]}</span>;
   return (
-    <section className="company" id="perusahaan" {...chapter('#c9c9c9', '#0b0b0b')} aria-labelledby="perusahaan-title">
-      <h2 id="perusahaan-title" className="display lines" data-lines><Lines lines={['Tentang kami']} /></h2>
+    <section className="company" id="company" {...chapter('#c9c9c9', '#0b0b0b')} aria-labelledby="company-title">
+      <h2 id="company-title" className="display lines" data-lines><Lines lines={['About us']} /></h2>
       <p className="statement" data-reveal>
-        <strong>PT Dafa Bali Utama</strong> berdiri pada {m(0)} dan memproduksi minuman beralkohol {m(2)}, berkadar di atas 20%, di pabrik kami di {m(1)}. Bahan baku lokal dan impor kami olah dengan kualitas yang selalu diperiksa, karena tujuan kami sederhana: membuat minuman terbaik dari bahan terbaik. Setiap produk terdaftar di {m(3)}, telah melalui uji lab sesuai standar pemerintah, dan setiap botol membawa {m(4)} dengan inisial pabrik DAFBALUT00. Kami adalah pemegang merek resmi Crystal Club di Indonesia, dan kami menjual kepada outlet yang memiliki {m(5)}. Visi kami: menjadi partner bisnis terpercaya, dengan integritas, kemitraan dan fokus pada pelanggan.{' '}
-        <a className="statement__close mark mark--red" href="#pesan" style={{ '--i': 6 }}>Mulai bermitra dengan kami.</a>
+        <strong>PT Dafa Bali Utama</strong> opened in {m(0)} and makes {m(2)} spirits, over 20% alcohol, at our plant in {m(1)}. We blend local and imported ingredients and check our quality at every step, because our aim is simple: the best drink, from the best ingredients. Every product is registered with {m(3)} and lab-tested to government standards, and every bottle carries {m(4)} with our plant’s code, DAFBALUT00. We hold the official Crystal Club trademark in Indonesia, and we sell to outlets that hold {m(5)}. Our vision is to be a business partner you can trust, built on integrity, partnership and care for our customers.{' '}
+        <a className="statement__close mark mark--red" href="#order" style={{ '--i': 6 }}>Become a partner.</a>
       </p>
     </section>
   );
 };
 
-const Venues = () => {
+// What we pour, running off both edges; this band now names the drinks instead of venues.
+const Pours = () => {
   const set = (hidden) => (
     <div className="marquee__set display" aria-hidden={hidden}>
-      {venues.map((v) => <React.Fragment key={v}><span>{v}</span><span className="marquee__dot" /></React.Fragment>)}
+      {pours.map((v) => <React.Fragment key={v}><span>{v}</span><span className="marquee__dot" /></React.Fragment>)}
     </div>
   );
   return (
-    <section className="venues" id="tempat" {...chapter('#0b0b0b', '#ffffff')} aria-labelledby="tempat-title">
-      <div className="venues__band"><div className="marquee" data-marquee>{set(false)}{set(true)}</div></div>
-      <div className="venues__copy" {...chapter('#ffffff', '#0b0b0b')}>
-        <h2 id="tempat-title" data-reveal>Tempat kami dituang</h2>
-        <p data-reveal style={{ '--i': 1 }}>Hotel dan bar yang pernah mengadakan Crystal Club Bar Takeover bersama kami, dengan cocktail tasting gratis, dari Jakarta sampai Cilegon.</p>
-      </div>
+    <section className="pours" id="pours" {...chapter('#0b0b0b', '#ffffff')} aria-labelledby="pours-title">
+      <h2 className="sr-only" id="pours-title">Everything we pour</h2>
+      <div className="pours__band"><div className="marquee" data-marquee>{set(false)}{set(true)}</div></div>
     </section>
   );
 };
 
 const Faq = () => (
-  <section className="faq" id="tanya" {...chapter('#ffffff', '#0b0b0b')} aria-labelledby="tanya-title">
-    <h2 id="tanya-title">Tanya jawab</h2>
+  <section className="faq" id="faq" {...chapter('#ffffff', '#0b0b0b')} aria-labelledby="faq-title">
+    <h2 id="faq-title">Questions</h2>
     <div className="faq__list">
       {faq.map((item, i) => (
         <details key={item.q} name="faq" data-reveal style={{ '--i': i }}>
@@ -191,29 +321,29 @@ const Contact = () => {
   const submit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const text = `Halo Dafa Bali Utama, saya ${data.get('nama')} dari ${data.get('outlet')}. Saya ingin memesan produk.`;
+    const text = `Hello Dafa Bali Utama, this is ${data.get('name')} from ${data.get('outlet')}. I would like to order.`;
     window.open(`${whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
   };
   return (
-    <section className="contact" id="pesan" {...chapter('#a92e2f', '#ffffff')} aria-labelledby="pesan-title">
+    <section className="contact" id="order" {...chapter('#a92e2f', '#ffffff')} aria-labelledby="order-title">
       <div className="strip" aria-hidden="true">
         {strip.map((src, i) => <img key={i} src={src} alt="" loading="lazy" />)}
       </div>
       <div className="contact__body">
-        <h2 id="pesan-title" data-reveal>Pesan untuk outlet Anda</h2>
-        <form className="order" onSubmit={submit} data-reveal style={{ '--i': 1 }}>
+        <h2 id="order-title" className="lines" data-lines><Lines lines={['Order for your outlet']} /></h2>
+        <form className="order" onSubmit={submit}>
           <div className="order__cell">
-            <label className="sr-only" htmlFor="nama">Nama</label>
-            <input id="nama" name="nama" placeholder="Nama Anda" required autoComplete="name" />
-            <small>Kami membalas di WhatsApp, 0878-8017-1188.</small>
+            <label className="sr-only" htmlFor="name">Your name</label>
+            <input id="name" name="name" placeholder="Your name" required autoComplete="name" />
+            <small>We reply on WhatsApp, 0878-8017-1188.</small>
           </div>
           <div className="order__cell">
-            <label className="sr-only" htmlFor="outlet">Nama outlet</label>
-            <input id="outlet" name="outlet" placeholder="Nama outlet" required autoComplete="organization" />
+            <label className="sr-only" htmlFor="outlet">Outlet name</label>
+            <input id="outlet" name="outlet" placeholder="Outlet name" required autoComplete="organization" />
           </div>
           <div className="order__cell">
-            <button type="submit">Kirim lewat WhatsApp</button>
-            <small>Penjualan kembali memerlukan NPPBKC dan SIUP MB.</small>
+            <button type="submit">Send on WhatsApp</button>
+            <small>Resale requires an NPPBKC and a SIUP MB.</small>
           </div>
         </form>
       </div>
@@ -222,36 +352,45 @@ const Contact = () => {
 };
 
 const BaliTime = () => {
-  const fmt = () => new Intl.DateTimeFormat('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Makassar' }).format(new Date());
+  const fmt = () => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Makassar' }).format(new Date());
   const [time, setTime] = useState(fmt);
   useEffect(() => {
     const id = setInterval(() => setTime(fmt()), 30000);
     return () => clearInterval(id);
   }, []);
-  return <p>Di Tabanan sekarang pukul {time} WITA.</p>;
+  return <>{time} in Tabanan</>;
 };
 
+// The footer closes on the name, set as large as the page allows.
 const Footer = () => (
-  <footer className="footer" {...chapter('#ffffff', '#0b0b0b')}>
-    <div className="ftile ftile--statement">
-      <p>Minuman golongan C dari Tabanan, Bali, sejak 2010.</p>
-      <small>© {new Date().getFullYear()} PT Dafa Bali Utama. Hanya untuk usia 21 tahun ke atas.</small>
+  <footer className="footer" {...chapter('#0b0b0b', '#ffffff')}>
+    <div className="footer__top">
+      <a className="footer__cta" href={whatsapp} target="_blank" rel="noreferrer">
+        Order on WhatsApp
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true"><path d="M14 50 50 14M22 14h28v28" /></svg>
+      </a>
+      <div className="footer__cols">
+        <div>
+          <h2 className="footer__label">Visit</h2>
+          <p>Jl. Jepun, Dauh Peken<br />Tabanan, Bali 82113</p>
+          <p><BaliTime /></p>
+        </div>
+        <div>
+          <h2 className="footer__label">Write</h2>
+          <p><a className="link" href={`mailto:${email}`}>{email}</a></p>
+          <p><a className="link" href={whatsapp} target="_blank" rel="noreferrer">0878-8017-1188</a></p>
+        </div>
+        <nav aria-label="Footer">
+          <h2 className="footer__label">Explore</h2>
+          <ul>{links.map(([href, label]) => <li key={href}><a className="link" href={href}>{label}</a></li>)}</ul>
+        </nav>
+      </div>
     </div>
-    <nav className="ftile ftile--nav" aria-label="Kaki halaman">
-      <ul>{links.map(([href, label]) => <li key={href}><a className="link" href={href}>{label}</a></li>)}</ul>
-    </nav>
-    <div className="ftile ftile--place">
-      <p>Jl. Jepun, Dauh Peken, Tabanan, Bali 82113</p>
-      <BaliTime />
+    <p className="footer__name display" aria-hidden="true">Dafa Bali Utama</p>
+    <div className="footer__legal">
+      <small>© {new Date().getFullYear()} PT Dafa Bali Utama</small>
+      <small>For adults of legal drinking age only. Please drink responsibly.</small>
     </div>
-    <div className="ftile ftile--mail">
-      <a className="link" href={`mailto:${email}`}>{email}</a>
-    </div>
-    <div className="ftile ftile--mark"><img src={logo} alt="PT Dafa Bali Utama" loading="lazy" width="600" height="457" /></div>
-    <a className="ftile ftile--cta" href={whatsapp} target="_blank" rel="noreferrer">
-      Pesan lewat WhatsApp
-      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="4" aria-hidden="true"><path d="M14 50 50 14M22 14h28v28" /></svg>
-    </a>
   </footer>
 );
 
@@ -269,6 +408,7 @@ const useMotion = () => {
     const observers = [
       once('[data-reveal]', { rootMargin: '0px 0px -12% 0px', threshold: 0.1 }),
       once('[data-lines]', { rootMargin: '0px 0px -10% 0px' }),
+      once('.footer', { rootMargin: '0px 0px -10% 0px' }),
     ];
     const root = document.documentElement.style;
     const header = new IntersectionObserver((entries) => {
@@ -306,10 +446,11 @@ const Home = () => {
       <main>
         <Hero />
         <Showcase />
+        <Haluu />
         <Plant />
         <Soju />
+        <Pours />
         <Company />
-        <Venues />
         <Faq />
         <Contact />
       </main>
