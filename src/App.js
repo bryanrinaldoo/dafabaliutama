@@ -1,13 +1,7 @@
 import React from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages';
 
-const App = () => (
-  <HashRouter>
-    <Routes>
-      <Route path="/" element={<Home/>} /> 
-    </Routes>
-  </HashRouter>
-);
+// A single page: in-page links are plain #anchors, so no router is needed.
+const App = () => <Home />;
 
 export default App;

@@ -2,7 +2,6 @@ const img = (name) => require(`./static/web/${name}`);
 
 export const whatsapp = 'https://wa.me/6287880171188';
 export const email = 'dafabaliutamajkt@gmail.com';
-export const haluuShop = 'https://kptll.com/collections/haluu';
 export const haluuInstagram = 'https://www.instagram.com/haluudrinks/';
 
 // Disc colours rotate through the chapter colours; facts are the client's own product notes.

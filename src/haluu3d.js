@@ -8,7 +8,13 @@ const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t);
 };
 
-const std = (color, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.55, ...extra });
+// Materials are shared by colour so the scene compiles a handful of shader programs, not one per piece.
+const materials = new Map();
+const std = (color, extra = {}) => {
+  const id = color + JSON.stringify(extra);
+  if (!materials.has(id)) materials.set(id, new THREE.MeshStandardMaterial({ color, roughness: 0.55, ...extra }));
+  return materials.get(id);
+};
 
 // One builder per flavour, in the order of content.js.
 const ingredients = [
@@ -52,9 +58,7 @@ const ingredients = [
       leaf.scale.set(1, 0.12, 0.45);
       g.add(leaf);
     } else {
-      g.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshPhysicalMaterial({
-        color: '#f3f9ff', roughness: 0.08, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.6,
-      })));
+      g.add(new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), std('#f3f9ff', { roughness: 0.08, transparent: true, opacity: 0.6 })));
     }
     return g;
   },
@@ -88,7 +92,9 @@ const place = (i, rand) => {
 
 export function mount({ canvas, section, flavours, onStep }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+  renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
+  // The error check makes the browser wait for every shader to link; keep it for development only.
+  renderer.debug.checkShaderErrors = process.env.NODE_ENV !== 'production';
 
   const scene = new THREE.Scene();
   const fields = flavours.map((f) => new THREE.Color(f.field));
@@ -107,8 +113,11 @@ export function mount({ canvas, section, flavours, onStep }) {
 
   // The bottle: one plane whose photo is swapped halfway through each turn.
   const loader = new THREE.TextureLoader();
+  const loads = [];
   const textures = flavours.map((f) => {
-    const t = loader.load(f.img);
+    let done;
+    loads.push(new Promise((resolve) => { done = resolve; }));
+    const t = loader.load(f.img, done, undefined, done);
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 4;
     return t;
@@ -234,6 +243,18 @@ export function mount({ canvas, section, flavours, onStep }) {
 
     renderer.render(scene, camera);
   };
+
+  // Compile every shader and upload every texture before the visitor arrives, so entering the section doesn't stall.
+  // compileAsync links shaders off the main thread where the browser supports it.
+  const ready = renderer.compileAsync(scene, camera).catch(() => {});
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
+  Promise.all([ready, ...loads]).then(() => idle(() => {
+    // One unseen frame with everything visible uploads the textures and finishes linking now, not on arrival.
+    textures.forEach((t) => renderer.initTexture(t));
+    groups.forEach((group) => { group.visible = true; });
+    renderer.render(scene, camera);
+    groups.forEach((group) => { group.visible = false; });
+  }));
 
   const start = () => { if (!running) { running = true; clock.start(); frame(); } };
   const stop = () => { running = false; cancelAnimationFrame(raf); };

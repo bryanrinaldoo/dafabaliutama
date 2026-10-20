@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { bottles, email, faq, haluu, haluuInstagram, haluuShop, logo, plant, pours, soju, strip, whatsapp } from '../content';
+import { bottles, email, faq, haluu, haluuInstagram, logo, plant, pours, soju, strip, whatsapp } from '../content';
 
 const links = [
   ['#bottles', 'Bottles'],
@@ -200,8 +200,7 @@ const Haluu = () => {
           <p className="haluu__count">{step + 1} of {haluu.length}</p>
         </div>
         <div className="haluu__links">
-          <a className="button" href={haluuShop} target="_blank" rel="noreferrer">Shop Haluu</a>
-          <a className="link" href={haluuInstagram} target="_blank" rel="noreferrer">@haluudrinks</a>
+          <a className="button" href={haluuInstagram} target="_blank" rel="noreferrer">Follow @haluudrinks</a>
         </div>
       </div>
       <ol className="haluu__list">
@@ -447,9 +446,9 @@ const Home = () => {
         <Hero />
         <Showcase />
         <Haluu />
-        <Plant />
         <Soju />
         <Pours />
+        <Plant />
         <Company />
         <Faq />
         <Contact />

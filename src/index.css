@@ -216,7 +216,7 @@ section[id] { scroll-margin-top: var(--header-h); }
 }
 @keyframes disc-pop { from { transform: scale(0.9); } }
 .bottle {
-  --x: 0; --s: 1;
+  --x: 0px; --s: 1;
   position: absolute; left: 50%; bottom: 6%; height: 96%; width: auto;
   transform: translateX(calc(-50% + var(--x))) scale(var(--s)); transform-origin: bottom center;
   transition: transform 900ms var(--ease-expo), opacity 600ms ease, filter 600ms ease;
